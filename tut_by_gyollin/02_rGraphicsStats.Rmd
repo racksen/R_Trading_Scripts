@@ -1,0 +1,45 @@
+---
+title: "R Graphics Tutorial"
+author: Senthil Ramalingam
+date: "July 28, 2015"
+output: html_document
+---
+
+This is an R Graphics tutorial document explained by Mr.Guy Yollin.You can find his lecture notes at <http://faculty.washington.edu/gyollin/AMATH463.php>.
+
+I just recreating his lecture notes to learn R. 
+
+```{r load_required_libs,message=FALSE, warning=FALSE}
+library(Ecdat)
+library(dplyr)
+data("Capm")
+```
+
+# plot function <sup>is a generic function to plot an R object</sup>
+
+
+## plot "risk free return" in points
+```{r plot_points_rf}
+plot(Capm$rf)
+```
+
+## plot "risk free return" in lines
+```{r plot_lines_rf}
+plot(Capm$rf, type = "l")
+```
+
+## plot "excess returns market portfolio" in bars
+```{r plot_bars_rmrf}
+plot(Capm$rmrf, type = "h")
+```
+## plotXY with "rmrf" and "excess returns construction industry"
+```{r plot_bars_rmrf}
+plot(Capm$rmrf, Capm$rcon)
+args(points.default)
+args(lines.default)
+args(text.default)
+```
+
+
+
+
