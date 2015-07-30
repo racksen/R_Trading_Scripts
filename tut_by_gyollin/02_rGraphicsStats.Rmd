@@ -12,6 +12,10 @@ I just recreating his lecture notes to learn R.
 ```{r load_required_libs,message=FALSE, warning=FALSE}
 library(Ecdat)
 library(dplyr)
+library(xts)
+library(quantmod)
+library(TTR)
+library(lubridate)
 data("Capm")
 ```
 
@@ -33,12 +37,40 @@ plot(Capm$rf, type = "l")
 plot(Capm$rmrf, type = "h")
 ```
 ## plotXY with "rmrf" and "excess returns construction industry"
-```{r plot_bars_rmrf}
+```{r xy_plot_bars_rmrf}
 plot(Capm$rmrf, Capm$rcon)
-args(points.default)
-args(lines.default)
-args(text.default)
 ```
+
+## plotting a blank frame
+```{r plot_blank}
+plot(0, xlim=c(-20,20), ylim=c(-20,20), type="n", xlab="market return", ylab="construction return")
+```
+
+## Adding points, lines and text on the above blank frame
+#```{r plot_point_line_text}
+points(x=Capm$rmrf, y= Capm$rcon, col="gray")
+regression1= lm(Capm$rmrf ~ Capm$rcon)
+abline(regression1, col="green")
+regression2= lm(Capm$rcon ~ Capm$rmrf)
+abline(regression2, col="blue")
+lines(x=c(-20,20), y=c(-20,20), lwd=2, col="darkred")
+text(20,20, labels="slope = 1", pos = 2)
+#```
+## R Graphics with par
+```{r names_par}
+names(par())
+```
+
+## Bar Plot
+```{r bar_plot}
+fromdate <- ymd("2015-01-01")
+todate <-  ymd(Sys.Date())
+msft <-getSymbols("MSFT",src="yahoo", from=fromdate, to=todate)
+msft.returns <- periodReturn(MSFT,period = "monthly")
+barplot(msft.returns,col="blue", names.arg = months(index(msft.returns)))
+```
+
+
 
 
 
